@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fieldwork — A Modular Trail Carry System</title>
+<meta name="description" content="Fieldwork is a modular trail running belt system. Designed in the field, for use in real conditions. Launching soon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F2A28;
+    --panel:#163A36;
+    --panel2:#1B4540;
+    --teal:#77B9BB;
+    --coral:#F48876;
+    --coral-dim:#D46B59;
+    --cream:#F5F3EE;
+    --line:rgba(245,243,238,0.14);
+    --mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--cream);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  .topo{
+    position:fixed; inset:0; z-index:0; opacity:0.35; pointer-events:none;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000"><path d="M480.0 260.0L496.6 268.6L507.7 280.0L510.6 291.9L505.4 301.9L494.3 308.4L480.8 311.7L467.8 313.0L456.7 314.0L447.1 315.6L438.2 317.6L429.1 318.7L420.0 317.4L411.7 313.5L404.9 307.8L399.5 302.1L394.3 297.8L387.9 295.5L379.5 294.4L369.9 292.7L361.6 288.7L357.6 282.0L360.1 273.7L369.0 265.7L382.0 260.0L394.8 257.2L403.3 256.2L405.4 254.8L401.4 250.9L394.3 243.2L387.5 232.4L384.2 220.4L385.7 209.5L391.3 201.1L399.7 195.5L409.4 191.8L420.0 189.0L431.4 186.7L443.4 185.7L455.3 187.5L465.3 193.3L471.5 202.9L472.8 215.1L470.0 227.4L465.5 237.7L462.8 244.9L464.5 249.9L470.9 254.3L480.0 260.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.1" stroke-width="1.4"/><path d="M582.6 260.0L587.2 278.7L581.6 296.8L566.9 311.7L546.6 322.1L525.0 328.5L505.6 332.7L489.8 337.3L476.8 343.6L464.6 351.5L451.3 359.3L436.2 364.6L420.0 366.0L404.0 363.1L389.4 357.2L376.1 350.0L363.7 342.8L351.5 335.9L339.6 328.3L329.4 319.1L322.8 307.7L321.3 294.8L324.5 281.8L330.2 270.0L335.1 260.0L335.8 250.6L331.3 239.8L322.9 225.8L314.2 208.1L309.4 187.9L311.9 168.1L322.4 151.9L339.4 141.3L359.9 136.7L381.1 136.6L401.3 139.0L420.0 142.1L437.7 145.5L454.7 149.8L470.5 156.4L484.0 165.8L494.2 177.8L501.4 190.8L507.0 203.3L513.0 214.4L521.1 224.4L531.3 234.7L541.4 246.4L548.2 260.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.045" stroke-width="1.0"/><path d="M640.8 260.0L630.9 283.6L613.2 304.0L591.3 320.3L569.3 333.3L550.2 344.9L534.7 357.5L521.3 372.2L507.2 388.4L490.1 403.8L468.9 415.1L444.8 420.0L420.0 418.0L396.7 410.5L375.9 400.0L357.2 388.8L339.6 378.4L322.2 368.3L305.2 357.6L289.6 345.1L276.8 330.3L267.4 313.7L260.4 296.4L254.0 278.6L246.4 260.0L237.2 239.5L228.1 216.3L222.6 190.5L224.4 164.0L235.7 139.8L256.6 121.1L284.3 109.7L315.0 105.5L345.0 106.2L372.3 108.8L396.9 110.7L420.0 111.2L443.0 111.2L466.4 112.7L489.3 117.7L510.4 126.9L528.5 139.8L543.7 154.9L556.9 170.7L569.3 186.7L581.2 203.2L591.4 221.0L597.7 240.1L597.9 260.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.045" stroke-width="1.0"/><path d="M669.5 260.0L657.8 286.6L642.2 310.6L625.8 332.5L610.7 353.6L597.1 375.5L583.2 398.7L566.4 422.1L544.3 443.0L516.6 458.2L484.8 465.4L451.7 464.4L420.0 457.1L391.1 446.7L364.4 436.4L338.2 427.8L311.0 420.5L282.2 412.6L253.1 401.9L225.6 386.8L201.9 367.1L182.8 343.5L168.0 317.4L156.6 289.5L148.2 260.0L143.5 229.1L144.7 197.3L154.2 166.4L173.1 138.8L200.7 117.0L234.2 102.1L269.6 93.4L303.6 88.6L334.4 84.4L362.8 78.6L390.7 70.8L420.0 62.8L451.4 57.5L483.7 58.0L514.7 65.6L542.4 79.9L565.5 98.8L584.7 120.0L601.2 141.8L616.4 163.6L630.3 185.9L641.7 209.5L648.9 234.4L650.6 260.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.045" stroke-width="1.0"/><path d="M713.7 260.0L707.8 292.2L698.1 323.3L686.2 353.7L672.5 383.9L656.2 414.0L635.2 443.0L608.1 468.4L574.7 487.8L536.6 499.3L496.7 503.3L457.4 501.6L420.0 497.7L383.7 494.2L346.7 492.4L307.3 491.2L265.3 487.7L222.5 478.8L182.1 462.2L147.7 437.6L121.3 406.6L103.3 371.5L92.6 334.6L87.6 297.2L87.7 260.0L93.1 223.4L105.1 188.3L124.5 156.0L151.0 128.0L182.5 105.1L216.2 86.8L249.5 71.2L281.4 56.0L312.7 39.8L345.3 23.0L380.9 7.8L420.0 -2.2L460.9 -4.1L500.9 3.5L537.1 19.7L568.3 41.6L595.0 66.1L619.2 90.7L642.8 114.7L666.7 139.0L689.9 165.0L710.2 193.9L725.1 225.9L733.1 260.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.1" stroke-width="1.4"/><path d="M781.7 260.0L776.1 299.9L764.9 338.6L749.7 376.1L730.8 412.5L707.3 447.4L677.9 479.2L642.3 506.2L601.4 527.1L557.2 541.6L511.8 551.3L466.2 558.4L420.0 564.7L371.9 570.6L320.9 574.4L267.5 572.9L214.4 562.7L165.5 542.0L124.7 511.0L94.6 472.3L75.0 429.3L64.1 385.3L58.9 342.2L57.3 300.6L58.6 260.0L63.9 220.2L74.9 181.4L92.5 144.7L116.3 111.0L144.9 80.6L176.3 52.8L209.4 26.7L244.5 1.6L282.6 -21.9L324.9 -41.7L371.2 -54.8L420.0 -58.7L468.4 -52.6L513.9 -37.7L555.1 -17.2L592.8 5.5L629.1 28.3L666.1 50.8L704.3 74.6L742.2 101.9L776.5 134.5L803.3 172.7L819.6 215.3L824.7 260.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.045" stroke-width="1.0"/><path d="M846.0 260.0L836.1 306.6L821.9 351.5L804.6 395.4L783.6 438.4L757.3 480.0L724.3 518.7L684.2 552.7L638.1 581.0L587.5 603.7L534.0 621.7L478.2 635.9L420.0 646.1L359.4 651.0L297.7 647.9L237.6 634.4L182.8 609.2L137.0 573.5L101.9 530.4L76.9 483.8L59.3 437.0L45.5 391.8L33.0 348.1L21.6 304.6L12.9 260.0L10.2 214.1L16.1 168.0L31.7 123.3L56.2 81.5L87.5 43.2L123.7 8.2L163.8 -23.8L207.6 -52.7L255.7 -77.2L308.1 -95.1L363.5 -104.6L420.0 -105.1L475.4 -97.4L528.4 -84.0L579.6 -67.5L630.3 -49.6L681.8 -30.0L733.9 -6.8L784.2 22.5L828.4 59.6L862.0 104.4L881.8 154.8L887.1 207.7L880.0 260.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.045" stroke-width="1.0"/><path d="M899.1 260.0L892.2 312.8L882.9 365.4L870.2 418.5L851.4 471.7L823.7 523.3L785.5 570.7L737.4 611.6L681.2 644.6L619.7 669.8L554.8 687.8L488.0 699.0L420.0 703.0L352.1 698.5L286.3 684.0L225.5 659.1L172.2 624.8L127.5 584.1L90.5 540.1L58.6 495.7L29.0 451.9L-0.1 407.9L-28.1 362.1L-51.9 312.8L-67.3 260.0L-70.7 205.1L-60.4 150.6L-37.4 99.0L-4.7 51.6L34.6 8.6L78.1 -30.6L125.1 -66.6L176.1 -99.1L231.6 -126.6L291.6 -147.2L355.0 -159.4L420.0 -163.3L485.0 -159.8L549.4 -150.6L613.4 -136.9L677.0 -118.4L739.2 -93.6L797.2 -60.6L846.9 -18.4L884.2 32.2L906.6 88.7L914.3 147.4L910.1 205.2L898.3 260.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.045" stroke-width="1.0"/><path d="M965.9 260.0L968.7 321.4L966.4 384.4L955.1 448.4L931.4 511.0L893.4 568.8L841.8 618.5L779.6 658.3L710.6 687.9L638.5 708.5L565.5 721.6L492.5 728.1L420.0 727.8L348.8 719.8L280.3 703.2L216.2 678.3L157.4 646.6L103.9 610.1L54.3 570.9L6.9 529.4L-38.7 485.1L-81.0 436.4L-116.5 382.2L-140.7 322.8L-150.2 260.0L-143.7 196.9L-122.8 136.4L-91.2 80.0L-53.0 27.9L-10.9 -21.1L34.2 -67.9L83.7 -112.5L139.2 -153.4L201.7 -187.9L270.7 -213.5L344.3 -228.7L420.0 -233.5L495.7 -228.9L570.2 -216.4L642.5 -196.5L711.4 -169.0L774.8 -133.0L829.6 -88.1L872.8 -35.4L902.9 23.0L920.6 83.8L928.6 144.2L931.0 202.8L931.0 260.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.1" stroke-width="1.4"/><path d="M1052.2 260.0L1057.6 331.3L1050.7 403.6L1028.3 474.2L989.1 539.3L934.6 595.6L868.6 641.4L796.2 676.7L721.3 703.6L646.4 724.6L571.6 741.1L496.4 753.1L420.0 759.4L342.9 757.7L266.5 746.9L192.5 726.8L122.2 698.5L55.8 663.4L-6.8 622.7L-65.2 576.5L-118.0 524.0L-161.9 464.9L-193.6 399.7L-210.0 330.5L-210.5 260.0L-196.9 191.0L-172.9 125.0L-142.3 62.0L-107.4 1.2L-68.3 -58.5L-23.0 -116.5L31.0 -170.9L95.3 -218.0L169.4 -254.3L250.6 -277.5L335.3 -287.2L420.0 -284.8L502.5 -272.6L581.6 -252.7L656.7 -225.7L726.8 -191.7L790.4 -150.3L845.5 -101.6L890.7 -47.0L926.3 11.5L954.0 72.0L976.2 133.3L994.7 195.7L1009.5 260.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.045" stroke-width="1.0"/><path d="M1387.3 700.0L1372.1 710.3L1353.5 716.7L1335.9 719.7L1322.8 721.0L1315.1 722.9L1311.3 726.6L1308.9 732.0L1305.7 737.8L1300.7 742.4L1294.1 744.9L1287.0 745.4L1280.0 745.4L1272.9 746.0L1264.9 747.8L1255.6 750.0L1245.5 750.8L1236.1 748.7L1229.5 742.9L1227.0 734.6L1228.1 725.5L1230.5 717.4L1230.8 711.2L1226.3 706.0L1216.2 700.0L1202.8 691.4L1189.9 679.5L1181.8 665.4L1181.5 651.7L1189.1 640.7L1202.7 634.3L1218.9 632.4L1234.8 633.5L1248.8 635.9L1260.6 638.4L1270.8 640.8L1280.0 644.0L1287.9 649.0L1293.9 655.9L1297.7 663.7L1299.9 670.6L1302.5 675.0L1307.7 676.4L1316.8 676.0L1329.3 675.8L1342.6 678.0L1353.0 683.4L1357.3 691.3L1354.5 700.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.1" stroke-width="1.4"/><path d="M1403.6 700.0L1386.9 712.0L1372.8 721.1L1364.2 729.6L1360.9 739.7L1360.5 752.5L1359.4 767.5L1354.6 782.6L1344.6 795.1L1330.2 803.1L1313.5 806.4L1296.4 806.1L1280.0 804.5L1264.1 802.9L1247.9 801.8L1231.2 800.1L1214.5 796.4L1199.1 789.6L1186.2 779.7L1175.9 767.9L1167.1 755.4L1157.6 743.1L1146.0 730.5L1132.3 716.5L1118.9 700.0L1109.5 680.9L1108.0 660.8L1116.3 642.4L1133.8 628.3L1157.3 620.0L1182.4 617.0L1205.3 617.2L1224.2 617.9L1239.5 616.9L1252.8 613.7L1266.0 609.6L1280.0 606.5L1294.6 605.8L1309.0 608.1L1322.7 612.3L1336.2 617.3L1350.3 622.2L1365.7 627.2L1382.0 633.5L1397.3 642.4L1408.8 654.7L1414.1 669.5L1412.7 685.2L1406.1 700.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.045" stroke-width="1.0"/><path d="M1435.8 700.0L1431.3 716.9L1430.3 734.2L1432.1 753.5L1433.7 775.4L1431.4 798.8L1422.2 820.9L1405.3 838.8L1382.2 850.4L1355.9 855.7L1329.3 856.3L1304.0 855.1L1280.0 854.4L1256.0 855.0L1230.8 856.1L1204.2 855.5L1177.4 851.1L1152.1 841.7L1129.6 827.8L1110.5 810.6L1094.0 791.3L1079.3 770.6L1066.5 748.6L1056.9 725.0L1053.2 700.0L1057.8 675.1L1071.6 652.5L1093.5 634.3L1119.7 621.4L1146.2 612.7L1169.3 605.9L1188.0 598.1L1203.5 587.4L1218.5 573.8L1235.6 559.3L1256.3 547.1L1280.0 539.8L1305.0 538.7L1329.4 543.1L1352.4 551.4L1374.1 561.5L1395.1 572.5L1415.8 584.6L1435.4 598.7L1452.1 615.6L1464.1 635.2L1470.6 656.6L1472.4 678.5L1471.8 700.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.045" stroke-width="1.0"/><path d="M1510.6 700.0L1514.8 726.3L1518.0 754.2L1517.9 783.7L1511.5 813.6L1496.7 841.3L1473.2 864.2L1443.1 880.7L1409.6 890.8L1375.9 896.8L1343.5 901.4L1312.1 907.0L1280.0 914.2L1245.7 921.4L1208.9 925.5L1171.1 923.4L1135.0 913.5L1103.2 895.8L1077.4 872.2L1057.5 845.1L1042.6 816.5L1031.6 787.5L1024.4 758.2L1022.1 728.9L1025.9 700.0L1036.6 672.8L1053.3 648.4L1073.5 627.3L1093.9 608.7L1112.3 590.6L1128.3 571.0L1143.5 548.8L1161.1 524.9L1183.5 502.0L1211.8 483.7L1244.9 473.1L1280.0 471.5L1314.4 477.7L1346.5 489.0L1376.2 502.6L1404.6 516.5L1433.0 530.5L1461.3 545.9L1488.3 564.1L1511.8 586.2L1530.1 611.9L1542.4 640.2L1549.4 669.8L1552.8 700.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.045" stroke-width="1.0"/><path d="M1597.8 700.0L1599.4 735.7L1596.5 772.1L1587.0 808.1L1569.6 842.1L1543.9 872.1L1511.6 896.9L1475.4 916.4L1437.8 932.3L1400.2 946.7L1362.4 961.2L1322.7 975.8L1280.0 988.1L1234.3 994.8L1187.8 992.6L1143.7 979.8L1105.3 957.1L1074.7 927.4L1051.6 894.1L1034.3 860.3L1020.3 827.4L1008.4 795.6L998.5 764.1L992.0 732.2L990.4 700.0L994.4 668.0L1003.2 637.0L1015.2 606.8L1028.9 576.8L1043.9 546.0L1061.7 514.4L1084.3 483.2L1113.7 455.1L1150.1 433.5L1192.0 420.8L1236.3 417.9L1280.0 423.0L1321.3 433.1L1360.4 444.8L1398.7 456.4L1437.7 467.9L1477.5 481.2L1516.8 498.7L1552.4 522.4L1581.2 552.2L1601.3 586.9L1612.5 624.3L1616.2 662.4L1614.2 700.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.1" stroke-width="1.4"/><path d="M1664.8 700.0L1663.1 742.9L1656.2 785.7L1642.5 827.6L1620.6 867.2L1591.1 902.9L1555.5 934.2L1515.9 961.4L1474.0 985.6L1429.9 1007.5L1383.0 1026.7L1332.8 1041.2L1280.0 1047.9L1226.7 1044.2L1176.2 1029.2L1131.7 1004.3L1094.6 972.9L1064.3 938.9L1038.3 905.4L1013.7 873.7L988.6 843.0L963.4 811.5L940.5 777.3L922.9 740.0L913.0 700.0L911.8 658.8L918.4 617.6L931.3 577.2L949.1 537.6L972.0 499.1L1000.7 462.6L1036.3 430.1L1079.0 404.0L1127.1 386.3L1178.3 377.4L1229.8 375.8L1280.0 378.9L1329.0 383.9L1377.9 389.5L1427.9 396.6L1478.8 407.4L1528.4 424.9L1573.0 451.0L1608.8 485.5L1633.5 526.5L1646.8 570.9L1650.9 615.5L1648.8 658.7L1643.0 700.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.045" stroke-width="1.0"/><path d="M1722.8 700.0L1724.9 749.8L1720.0 800.2L1705.5 849.8L1680.4 896.5L1645.8 938.6L1603.8 975.3L1556.8 1006.7L1506.3 1033.2L1453.0 1054.9L1396.8 1070.7L1338.6 1078.6L1280.0 1077.0L1223.4 1065.5L1171.1 1045.5L1124.1 1019.9L1081.6 992.2L1041.1 964.6L1000.3 937.7L958.1 909.9L915.9 878.7L877.2 841.8L846.3 798.8L826.9 750.7L820.4 700.0L825.8 649.2L840.4 599.9L861.8 552.7L888.2 507.7L919.8 465.1L957.4 425.8L1001.5 391.5L1051.8 364.0L1106.6 344.2L1163.9 331.6L1221.9 324.6L1280.0 321.5L1338.6 321.6L1398.0 325.7L1457.4 336.0L1514.4 354.9L1565.3 384.0L1606.6 422.4L1636.3 467.6L1654.9 516.0L1665.2 564.4L1671.0 610.9L1675.4 655.8L1679.3 700.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.045" stroke-width="1.0"/><path d="M1794.2 700.0L1798.8 758.1L1790.8 816.3L1768.8 872.1L1733.8 922.7L1688.7 966.5L1637.1 1003.6L1582.1 1034.6L1524.9 1060.5L1465.9 1081.5L1405.0 1096.5L1342.6 1104.4L1280.0 1104.3L1218.6 1096.7L1159.2 1083.2L1101.7 1065.9L1044.9 1046.1L987.6 1023.9L929.9 997.5L874.2 964.7L824.5 923.5L785.5 874.1L760.7 818.3L751.2 759.2L755.1 700.0L768.9 642.8L789.0 588.2L813.0 535.6L841.0 484.6L874.4 435.5L915.1 389.9L964.0 349.9L1020.3 317.6L1082.0 293.7L1146.9 277.8L1213.2 268.7L1280.0 265.5L1346.8 268.5L1412.8 278.8L1475.9 298.0L1533.3 327.0L1582.5 364.9L1622.1 409.2L1652.9 456.8L1677.7 504.8L1699.9 552.2L1721.8 599.4L1743.4 648.1L1761.9 700.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.045" stroke-width="1.0"/><path d="M1866.1 700.0L1862.5 765.2L1842.5 828.1L1807.9 885.9L1762.5 936.8L1710.9 981.0L1656.5 1020.0L1600.9 1055.5L1543.7 1088.2L1483.4 1117.4L1419.1 1141.2L1350.9 1157.7L1280.0 1165.6L1208.0 1165.0L1136.0 1156.9L1064.5 1142.3L993.7 1121.5L924.8 1093.5L860.0 1057.0L802.9 1011.2L757.7 956.3L726.9 894.7L711.1 829.6L708.0 764.0L713.8 700.0L725.0 637.9L739.7 576.9L758.6 516.4L784.2 456.7L819.4 399.6L866.0 348.1L923.5 305.1L989.5 272.2L1060.6 249.7L1133.7 236.1L1207.2 229.8L1280.0 229.8L1351.8 236.3L1421.8 250.3L1488.3 272.6L1549.6 303.1L1604.6 340.5L1653.5 382.5L1698.0 427.3L1740.0 474.2L1780.5 523.8L1818.1 577.4L1849.3 636.3L1869.4 700.0Z" fill="none" stroke="%23F5F3EE" stroke-opacity="0.1" stroke-width="1.4"/><path d="M-20 760C300 600 620 880 1000 560S1500 640 1650 420" fill="none" stroke="%23F5F3EE" stroke-opacity="0.1" stroke-width="2" stroke-dasharray="2 11"/></svg>');
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+  }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 28px; }
+  .eyebrow{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--coral); display:flex; align-items:center; gap:10px; margin-bottom:18px;
+  }
+  .eyebrow::before{ content:''; width:16px; height:1px; background:var(--coral); display:inline-block; }
+
+  /* ---------- Icon strip divider (from the deck's own recurring motif) ---------- */
+  .icon-strip{
+    height:22px; background-image:url('images/icon-strip.png'); background-repeat:repeat-x;
+    background-size:auto 22px; opacity:0.55;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:relative; z-index:5;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 28px; max-width:1180px; margin:0 auto;
+  }
+  header .brand{ display:flex; align-items:center; gap:10px; }
+  header .brand img{ height:26px; width:auto; }
+  header .cta-link{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:0.05em; text-transform:uppercase;
+    color:var(--cream); text-decoration:none; border:1px solid var(--line); padding:9px 16px;
+    border-radius:2px; transition:border-color 0.15s, color 0.15s;
+  }
+  header .cta-link:hover{ border-color:var(--coral); color:var(--coral); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative; z-index:1;
+    min-height:92vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:60px 28px 80px;
+    background-image:
+      linear-gradient(180deg, rgba(15,42,40,0.5) 0%, rgba(15,42,40,0.68) 60%, var(--ink) 100%),
+      url('images/hero-sitting.jpg');
+    background-size:cover; background-position:center 20%;
+  }
+  .hero-mark{ width:200px; height:auto; margin-bottom:28px; opacity:0.95; filter:drop-shadow(0 2px 12px rgba(0,0,0,0.4)); }
+  .hero-word{ width:min(440px, 68vw); height:auto; margin-bottom:26px; filter:drop-shadow(0 2px 16px rgba(0,0,0,0.4)); }
+  .hero h1{
+    font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase;
+    font-size:clamp(34px, 6vw, 62px); letter-spacing:0.01em; line-height:1.05;
+    max-width:820px; margin-bottom:18px; text-shadow:0 2px 20px rgba(0,0,0,0.35);
+  }
+  .hero .sub{
+    font-size:clamp(15px,2vw,18px); color:rgba(245,243,238,0.85); max-width:480px; margin-bottom:40px;
+  }
+  .signup{
+    display:flex; gap:10px; flex-wrap:wrap; justify-content:center; width:100%; max-width:460px;
+  }
+  .signup input[type=email]{
+    flex:1; min-width:220px; background:rgba(15,42,40,0.55); border:1px solid rgba(245,243,238,0.3);
+    color:var(--cream); padding:14px 16px; font-size:14px; border-radius:2px; font-family:'Inter',sans-serif;
+    backdrop-filter:blur(6px);
+  }
+  .signup input[type=email]::placeholder{ color:rgba(245,243,238,0.55); }
+  .signup input[type=email]:focus-visible{ outline:2px solid var(--coral); outline-offset:2px; }
+  .signup button{
+    background:var(--coral); color:var(--ink); border:none; font-family:'Barlow Condensed',sans-serif;
+    font-weight:700; font-size:14.5px; letter-spacing:0.03em; text-transform:uppercase;
+    padding:14px 22px; border-radius:2px; cursor:pointer; transition:background 0.15s;
+  }
+  .signup button:hover{ background:var(--coral-dim); }
+  .signup button:focus-visible{ outline:2px solid var(--cream); outline-offset:2px; }
+  .signup-note{ font-size:12.5px; color:rgba(245,243,238,0.55); margin-top:14px; }
+  .signup-success{ font-family:var(--mono); font-size:13px; color:var(--teal); margin-top:14px; display:none; }
+
+  /* ---------- Section rhythm ---------- */
+  section{ position:relative; z-index:1; padding:100px 0; }
+  section.alt{ background:rgba(22,58,54,0.5); }
+
+  /* ---------- Rocker scroll-scrub sequence ---------- */
+  .rocker-section{ position:relative; height:350vh; }
+  .rocker-sticky{
+    position:sticky; top:0; height:100vh; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+    background:#ede8e2;
+    --belt-top:20%;
+  }
+  .rocker-sticky canvas{ width:100%; height:100%; display:block; }
+  .rocker-loader{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:14px; background:#ede8e2;
+  }
+  .rocker-loader-bar{
+    width:200px; height:2px; background:rgba(15,42,40,0.15); overflow:hidden;
+  }
+  .rocker-loader-fill{
+    width:0%; height:100%; background:var(--coral); transition:width 0.15s linear;
+  }
+  .rocker-loader-text{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    color:rgba(15,42,40,0.55);
+  }
+  .rocker-callout{
+    position:absolute; display:flex; align-items:flex-start; gap:16px;
+    opacity:0; transition:opacity 0.5s ease; pointer-events:none; max-width:280px;
+  }
+  .rocker-callout.is-visible{ opacity:1; }
+  .rocker-callout-text{ display:flex; flex-direction:column; gap:5px; }
+  .rocker-callout-heading{
+    font-family:var(--mono); font-size:15px; letter-spacing:0.07em; text-transform:uppercase;
+    color:var(--ink);
+    text-shadow:0 0 6px rgba(255,255,255,0.85), 0 0 14px rgba(255,255,255,0.65);
+  }
+  .rocker-callout-body{
+    font-family:'Inter',sans-serif; font-size:13px; line-height:1.45; color:rgba(15,42,40,0.8);
+    text-shadow:0 0 6px rgba(255,255,255,0.85), 0 0 14px rgba(255,255,255,0.65);
+  }
+  .rocker-callout-line{ height:1.5px; width:100px; background:var(--coral); position:relative; flex-shrink:0; margin-top:9px; }
+  .rocker-callout-line--long{ width:min(320px, 32vw); }
+  .rocker-callout-line::after{
+    content:''; position:absolute; top:50%; width:7px; height:7px; border-radius:50%;
+    background:var(--coral); transform:translateY(-50%);
+  }
+  /* Odd callouts sit on the left with the line pointing right into the belt. */
+  .rocker-callout--odd{ left:5%; flex-direction:row; text-align:left; }
+  .rocker-callout--odd .rocker-callout-line::after{ right:-3px; }
+  /* Even callouts sit on the right; the arrow stays left of the text and points further left into the belt. */
+  .rocker-callout--even{ right:5%; flex-direction:row; text-align:left; }
+  .rocker-callout--even .rocker-callout-line::after{ left:-3px; }
+  .rocker-callout--1{ top:32%; }
+  .rocker-callout--2{ top:23%; }
+  .rocker-callout--3{ top:36%; }
+  .rocker-callout--4{ top:49%; }
+  .rocker-callout--5{ top:58%; }
+  .rocker-callout--6{ top:69%; }
+  .rocker-callout--7{ top:73%; }
+  .rocker-callout--8{ top:46%; }
+  /* Per-callout overrides */
+  #rockerCallout1{ max-width:400px; }
+  #rockerCallout2{ max-width:560px; top:calc(23% + 400px); }
+
+  /* Mobile: instead of tracking a spot on the belt (which caused stacking/overlap
+     once compressed onto a phone screen), callouts sit in two fixed slots above
+     the image — odd numbers on the left, even on the right — and just cycle
+     through as you scroll instead of each claiming its own vertical position.
+     Full viewport height (matches desktop), with the callout band + belt
+     centered as one group instead of pinned to the top. */
+  @media (max-width:767px){
+    .rocker-callout{
+      max-width:46vw; gap:6px; flex-direction:column !important; align-items:flex-start;
+    }
+    /* Even callouts (4, 6, 8) markup is <line><text> — needed for the old
+       horizontal layout where the arrow sat left of the text. In this column
+       layout that DOM order put the arrow above the text instead of below it.
+       Force text first / line second regardless of source order. */
+    .rocker-callout-text{ order:1; }
+    .rocker-callout-line{ order:2; }
+    .rocker-callout-heading{ font-size:11.5px; letter-spacing:0.05em; }
+    .rocker-callout-body{ font-size:10.5px; line-height:1.35; }
+    .rocker-callout-line{ height:22px; width:1.5px; margin-top:0; }
+    .rocker-callout-line--long{ width:1.5px; }
+    /* Dot centering: these compound selectors match the desktop horizontal-arrow
+       rules' specificity exactly, so being declared later here is what lets them
+       win instead of being silently outranked by the (higher-specificity) desktop
+       left/right rules. */
+    .rocker-callout-line::after,
+    .rocker-callout--odd .rocker-callout-line::after,
+    .rocker-callout--even .rocker-callout-line::after,
+    #rockerCallout2 .rocker-callout-line::after{
+      top:auto; bottom:-3px; left:50%; right:auto; transform:translateX(-50%);
+    }
+    /* --belt-top (set in JS off the actual drawn canvas) is where the belt's top
+       edge lands for the current viewport. Anchoring from the bottom keeps each
+       callout's arrow tip a fixed gap above the belt regardless of viewport
+       height/aspect, instead of a fixed top:% that only suited one screen size. */
+    .rocker-callout--odd{ left:3%; top:auto; bottom:calc(100% - var(--belt-top) + 6px); text-align:left; align-items:flex-start; }
+    .rocker-callout--even{ right:3%; top:auto; bottom:calc(100% - var(--belt-top) + 6px); text-align:right; align-items:flex-end; }
+    #rockerCallout1{ max-width:46vw; }
+    /* #2 is pinned left on desktop (per request), but that puts three left-side
+       callouts (1,2,3) in a row, which collide once stacked into this tight mobile
+       band. Flip #2 back to the right on mobile so neighbors alternate sides. */
+    #rockerCallout2{
+      max-width:46vw; left:auto; right:3%; top:auto; bottom:calc(100% - var(--belt-top) + 6px);
+      flex-direction:column !important; align-items:flex-end; text-align:right;
+    }
+  }
+
+  /* ---------- System / spec cards with product photos ---------- */
+  .system-head{ max-width:760px; margin:0 auto 56px; padding:0 28px; text-align:center; }
+  .system-head h2{
+    font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase;
+    font-size:clamp(28px,4vw,42px); margin-bottom:14px;
+  }
+  .system-head p{ color:rgba(245,243,238,0.68); font-size:15.5px; }
+  .cards{
+    display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line);
+    max-width:1000px; margin:0 auto; border:1px solid var(--line);
+  }
+  @media (max-width:720px){ .cards{ grid-template-columns:1fr; } }
+  .card{ background:var(--ink); }
+  .card .photo{
+    width:100%; aspect-ratio:16/9; overflow:hidden; background:var(--panel);
+    display:flex; align-items:center; justify-content:center; padding:28px;
+  }
+  .card .photo img{ width:100%; height:100%; object-fit:contain; }
+  .card .body{ padding:32px 36px 40px; }
+  .card .tag{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--teal); margin-bottom:10px;
+  }
+  .card h3{
+    font-family:'Barlow Condensed',sans-serif; font-weight:700; text-transform:uppercase;
+    font-size:26px; margin-bottom:6px;
+  }
+  .card .desc{ color:rgba(245,243,238,0.55); font-size:13.5px; margin-bottom:24px; }
+  .card ul{ list-style:none; }
+  .card li{
+    font-size:14.5px; color:rgba(245,243,238,0.85); padding:9px 0; border-top:1px solid var(--line);
+    display:flex; gap:10px;
+  }
+  .card li:first-child{ border-top:none; }
+  .card li::before{ content:'//'; color:var(--coral); font-family:var(--mono); flex-shrink:0; }
+
+  /* ---------- Product gallery strip ---------- */
+  .gallery{
+    display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line);
+    max-width:1000px; margin:1px auto 0; border:1px solid var(--line); border-top:none;
+  }
+  @media (max-width:720px){ .gallery{ grid-template-columns:1fr; } }
+  .gallery-item{
+    background:var(--panel); aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; padding:32px;
+  }
+  .gallery-item img{ width:100%; height:100%; object-fit:contain; }
+
+  /* ---------- Stability full-bleed banner ---------- */
+  .stability-banner{
+    min-height:60vh; display:flex; align-items:center; justify-content:center; text-align:center;
+    padding:60px 28px;
+    background-image:
+      linear-gradient(180deg, var(--ink) 0%, rgba(15,42,40,0.4) 30%, rgba(15,42,40,0.4) 70%, var(--ink) 100%),
+      url('images/stability.jpg');
+    background-size:cover; background-position:center 35%;
+  }
+  .stability-banner h2{
+    font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase;
+    font-size:clamp(30px,5.5vw,52px); line-height:1.08; color:var(--cream);
+    text-shadow:0 2px 20px rgba(0,0,0,0.45);
+  }
+
+  /* ---------- Statement w/ photo bg ---------- */
+  .statement{
+    text-align:center; padding:140px 28px;
+    background-image:
+      linear-gradient(180deg, var(--ink) 0%, rgba(15,42,40,0.72) 25%, rgba(15,42,40,0.72) 75%, var(--ink) 100%),
+      url('images/runner-distant.jpg');
+    background-size:cover; background-position:center 25%;
+  }
+  .statement h2{
+    font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase;
+    font-size:clamp(30px,5.5vw,54px); line-height:1.08; max-width:900px; margin:0 auto 24px;
+    text-shadow:0 2px 20px rgba(0,0,0,0.4);
+  }
+  .statement h2 span{ color:var(--coral); }
+  .statement p{ max-width:560px; margin:0 auto; color:rgba(245,243,238,0.85); font-size:15.5px; }
+
+  /* ---------- Roadmap ---------- */
+  .roadmap{ max-width:760px; margin:0 auto; padding:0 28px; }
+  .roadmap-head{ text-align:center; margin-bottom:50px; }
+  .roadmap-head h2{
+    font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase;
+    font-size:clamp(26px,4vw,38px);
+  }
+  .phase{ display:flex; gap:28px; padding:26px 0; border-top:1px solid var(--line); }
+  .phase:last-of-type{ border-bottom:1px solid var(--line); }
+  .phase-num{
+    font-family:var(--mono); font-size:13px; color:var(--coral); flex-shrink:0; width:90px; padding-top:3px;
+  }
+  .phase-body h3{
+    font-family:'Barlow Condensed',sans-serif; font-weight:700; text-transform:uppercase;
+    font-size:19px; margin-bottom:6px; display:flex; align-items:center; gap:10px;
+  }
+  .phase-badge{
+    font-family:var(--mono); font-size:10px; letter-spacing:0.05em; text-transform:uppercase;
+    background:var(--coral); color:var(--ink); padding:3px 8px; border-radius:2px;
+  }
+  .phase-body p{ color:rgba(245,243,238,0.62); font-size:14.5px; }
+  .roadmap-close{
+    text-align:center; margin-top:44px; font-family:'Barlow Condensed',sans-serif; font-weight:600;
+    font-size:17px; color:var(--cream); text-transform:uppercase; letter-spacing:0.01em;
+  }
+
+  /* ---------- Team / credibility strip ---------- */
+  .team{
+    position:relative; display:grid; grid-template-columns:1.1fr 0.9fr; align-items:center;
+    max-width:1180px; margin:0 auto; gap:0;
+  }
+  @media (max-width:820px){ .team{ grid-template-columns:1fr; } }
+  .team-photo img{ width:100%; height:100%; object-fit:cover; display:block; min-height:320px; }
+  .team-text{ padding:50px 60px; }
+  @media (max-width:820px){ .team-text{ padding:40px 28px; } }
+  .team-text h2{
+    font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase;
+    font-size:clamp(24px,3.6vw,34px); margin-bottom:16px;
+  }
+  .team-text p{ color:rgba(245,243,238,0.68); font-size:15px; max-width:440px; }
+
+  /* ---------- Closing CTA ---------- */
+  .closing{ text-align:center; padding:0 28px; }
+  .closing h2{
+    font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase;
+    font-size:clamp(28px,5vw,44px); margin-bottom:16px;
+  }
+  .closing p{ color:rgba(245,243,238,0.65); font-size:15px; margin-bottom:36px; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    position:relative; z-index:1; border-top:1px solid var(--line); padding:32px 28px;
+  }
+  .footer-row{
+    max-width:1180px; margin:0 auto; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:16px;
+  }
+  .footer-row img{ height:18px; opacity:0.6; }
+  .footer-meta{
+    font-family:var(--mono); font-size:11.5px; color:rgba(245,243,238,0.42); letter-spacing:0.02em;
+  }
+</style>
+</head>
+<body>
+
+<div class="topo"></div>
+
+<header>
+  <div class="brand">
+    <img src="images/mark.png" alt="Fieldwork">
+  </div>
+  <a class="cta-link" href="#signup">Get Early Access</a>
+</header>
+
+<section class="hero">
+  <img class="hero-mark" src="images/mark.png" alt="">
+  <img class="hero-word" src="images/wordmark.png" alt="Fieldwork">
+  <h1>A modular trail carry system.</h1>
+  <p class="sub">Designed in the field. For use in real conditions.</p>
+
+  <form class="signup" id="signupForm">
+    <input type="email" id="emailInput" placeholder="you@trailmail.com" required aria-label="Email address">
+    <button type="submit">Notify Me</button>
+  </form>
+  <p class="signup-note" id="signupNote">One email when we launch. No spam — we'd rather be running.</p>
+  <p class="signup-success" id="signupSuccess">You're on the list. See you on trail.</p>
+</section>
+
+<div class="icon-strip"></div>
+
+<section class="rocker-section" id="rockerSection">
+  <div class="rocker-sticky">
+    <canvas id="rockerCanvas"></canvas>
+    <div class="rocker-callout rocker-callout--1 rocker-callout--odd" id="rockerCallout1">
+      <div class="rocker-callout-text">
+        <div class="rocker-callout-heading">Comfortable and Secure</div>
+        <div class="rocker-callout-body">Wide Morito Sticky fabric overlap ensures the right fit with high shear strength and performance in all conditions.</div>
+      </div>
+      <span class="rocker-callout-line"></span>
+    </div>
+    <div class="rocker-callout rocker-callout--2 rocker-callout--odd" id="rockerCallout2">
+      <div class="rocker-callout-text">
+        <div class="rocker-callout-heading">Secure Storage</div>
+        <div class="rocker-callout-body">Phone, ID, and keys in a dedicated zippered pocket.</div>
+      </div>
+      <span class="rocker-callout-line rocker-callout-line--long"></span>
+    </div>
+    <div class="rocker-callout rocker-callout--3 rocker-callout--odd" id="rockerCallout3">
+      <div class="rocker-callout-text">
+        <div class="rocker-callout-heading">Side Pocketing</div>
+        <div class="rocker-callout-body">Gel wrappers shouldn't live next to your phone.</div>
+      </div>
+      <span class="rocker-callout-line"></span>
+    </div>
+    <div class="rocker-callout rocker-callout--4 rocker-callout--even" id="rockerCallout4">
+      <span class="rocker-callout-line"></span>
+      <div class="rocker-callout-text">
+        <div class="rocker-callout-heading">Centered Core</div>
+        <div class="rocker-callout-body">Up to 1.15L of water plus room for 2 jumbo gels and a filter — centered, stable, no bounce.</div>
+      </div>
+    </div>
+    <div class="rocker-callout rocker-callout--5 rocker-callout--odd" id="rockerCallout5">
+      <div class="rocker-callout-text">
+        <div class="rocker-callout-heading">External Cording</div>
+        <div class="rocker-callout-body">Lash on poles and/or a jacket.</div>
+      </div>
+      <span class="rocker-callout-line"></span>
+    </div>
+    <div class="rocker-callout rocker-callout--6 rocker-callout--even" id="rockerCallout6">
+      <span class="rocker-callout-line"></span>
+      <div class="rocker-callout-text">
+        <div class="rocker-callout-heading">More Pockets</div>
+        <div class="rocker-callout-body">Electrolytes, gels, keys, whatever.</div>
+      </div>
+    </div>
+    <div class="rocker-callout rocker-callout--7 rocker-callout--odd" id="rockerCallout7">
+      <div class="rocker-callout-text">
+        <div class="rocker-callout-heading">Modular Ultra Add-On</div>
+        <div class="rocker-callout-body">An additional single large pouch for those long days, secures snugly via 4-point cording.</div>
+      </div>
+      <span class="rocker-callout-line"></span>
+    </div>
+    <div class="rocker-callout rocker-callout--8 rocker-callout--even" id="rockerCallout8">
+      <span class="rocker-callout-line"></span>
+      <div class="rocker-callout-text">
+        <div class="rocker-callout-heading">Durable Spundura</div>
+        <div class="rocker-callout-body">Stretchy but strong — this will last a long time.</div>
+      </div>
+    </div>
+    <div class="rocker-loader" id="rockerLoader">
+      <div class="rocker-loader-bar"><div class="rocker-loader-fill" id="rockerLoaderFill"></div></div>
+      <div class="rocker-loader-text" id="rockerLoaderText">Loading 0%</div>
+    </div>
+  </div>
+</section>
+
+<div class="icon-strip"></div>
+
+<section class="alt">
+  <div class="system-head">
+    <div class="eyebrow" style="justify-content:center;">The Product // One Belt. Infinite Runs.</div>
+    <h2>The Fieldwork System</h2>
+    <p>A stable core belt with modular expansion, designed to scale across duration and terrain.</p>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="photo"><img src="images/belt-core.png" alt="The Core belt"></div>
+      <div class="body">
+        <div class="tag">Back Carry System</div>
+        <h3>The Core</h3>
+        <div class="desc">Everything a run actually needs, centered and stable.</div>
+        <ul>
+          <li>Up to 1.15L of water, centered and stable</li>
+          <li>Two jumbo gels (6+ regular)</li>
+          <li>Water filter</li>
+          <li>Phone, ID, and keys in a secure pocket</li>
+          <li>Dedicated trash pocket</li>
+          <li>External cording for poles or a jacket</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="photo"><img src="images/belt-ultra.png" alt="The Ultra Expansion front pack"></div>
+      <div class="body">
+        <div class="tag">Front Volume Add-on</div>
+        <h3>The Ultra Expansion</h3>
+        <div class="desc">Swaps on for the long days, without touching the core setup.</div>
+        <ul>
+          <li>Everything the Core provides, plus</li>
+          <li>2–4 jumbo gels or 8+ regular</li>
+          <li>250ml soft flask and 4+ gels</li>
+          <li>Swappable at aid stations with a preloaded front</li>
+          <li>Room to grow: waist light, GoPro, and battery modules planned</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="gallery">
+    <div class="gallery-item"><img src="images/belt-angle-1.png" alt="Fieldwork belt, alternate angle"></div>
+    <div class="gallery-item"><img src="images/belt-angle-2.png" alt="Fieldwork belt, side profile"></div>
+  </div>
+</section>
+
+<section class="stability-banner">
+  <h2>Stays put.<br>No matter the terrain.</h2>
+</section>
+
+<div class="icon-strip"></div>
+
+<section class="statement">
+  <h2>Built in the field.<br>Not the <span>boardroom.</span></h2>
+  <p>Designed, tested, and refined on trail. Iterated through failure, not focus groups. The designer is the user. The trail is the test lab.</p>
+</section>
+
+<div class="icon-strip"></div>
+
+<section class="alt">
+  <div class="roadmap">
+    <div class="roadmap-head">
+      <div class="eyebrow" style="justify-content:center;">Designed to Grow // A Platform, Not a One-Off</div>
+      <h2>Where this is headed</h2>
+    </div>
+    <div class="phase">
+      <div class="phase-num">PHASE 01</div>
+      <div class="phase-body">
+        <h3>Belt &amp; Accessories <span class="phase-badge">Current</span></h3>
+        <p>Front volume variations, a handheld flask adaptor, apparel basics.</p>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">PHASE 02</div>
+      <div class="phase-body">
+        <h3>Larger Carry</h3>
+        <p>Drop bag, travel duffle, fast pack system.</p>
+      </div>
+    </div>
+    <p class="roadmap-close">This is the first product in a considered lineup. Not a single run order.</p>
+  </div>
+</section>
+
+<section style="padding:0;">
+  <div class="team">
+    <div class="team-photo"><img src="images/team-ridge.jpg" alt="The Fieldwork team"></div>
+    <div class="team-text">
+      <div class="eyebrow">Why We Built This</div>
+      <h2>Built by trail runners, packmakers, and brand builders.</h2>
+      <p>The product exists because the existing options kept failing on trail. Designed by someone who runs it, built with someone who's taken technical softgoods from pattern to production at scale, and shaped by someone who knows what belongs alongside the best in the category.</p>
+    </div>
+  </div>
+</section>
+
+<div class="icon-strip"></div>
+
+<section id="signup">
+  <div class="closing">
+    <h2>Get early access</h2>
+    <p>Be first to know when Fieldwork launches — and first in line for early pricing.</p>
+    <form class="signup" id="signupForm2" style="margin:0 auto;">
+      <input type="email" id="emailInput2" placeholder="you@trailmail.com" required aria-label="Email address">
+      <button type="submit">Notify Me</button>
+    </form>
+    <p class="signup-success" id="signupSuccess2">You're on the list. See you on trail.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-row">
+    <img src="images/mark.png" alt="Fieldwork">
+    <div class="footer-meta">FIELDWORK · North Shore, BC · fieldworktrail.ca</div>
+  </div>
+</footer>
+
+<script>
+// NOTE: GitHub Pages can't process form submissions server-side. To actually
+// collect emails, point these forms at a form backend (Formspree, Basin,
+// Mailchimp embed, etc.) and swap this handler for a real fetch() POST.
+function wireSignupForm(formId, successId){
+  const form = document.getElementById(formId);
+  const success = document.getElementById(successId);
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    form.style.display = 'none';
+    success.style.display = 'block';
+  });
+}
+wireSignupForm('signupForm', 'signupSuccess');
+wireSignupForm('signupForm2', 'signupSuccess2');
+
+// ---------- Rocker scroll-scrub sequence ----------
+(function(){
+  const FRAME_COUNT = 241;
+  const FRAME_W = 1920, FRAME_H = 800;
+  const framePath = (i) => `belt-sequencejpg/belt_360_${String(i).padStart(5,'0')}.jpg`;
+
+  const section = document.getElementById('rockerSection');
+  const sticky = document.querySelector('.rocker-sticky');
+  const canvas = document.getElementById('rockerCanvas');
+  const ctx = canvas.getContext('2d');
+  const loader = document.getElementById('rockerLoader');
+  const loaderFill = document.getElementById('rockerLoaderFill');
+  const loaderText = document.getElementById('rockerLoaderText');
+  // Callout windows are keyed off specific frame numbers in the 241-frame sequence,
+  // converted to scroll-progress fractions (frame / FRAME_COUNT). Overlap between
+  // consecutive callouts is intentional.
+  const CALLOUTS = [
+    { el: document.getElementById('rockerCallout1'), from: 2 / FRAME_COUNT,   to: 37 / FRAME_COUNT },
+    { el: document.getElementById('rockerCallout2'), from: 34 / FRAME_COUNT,  to: 69 / FRAME_COUNT },
+    { el: document.getElementById('rockerCallout3'), from: 57 / FRAME_COUNT,  to: 92 / FRAME_COUNT },
+    { el: document.getElementById('rockerCallout4'), from: 75 / FRAME_COUNT,  to: 110 / FRAME_COUNT },
+    { el: document.getElementById('rockerCallout5'), from: 90 / FRAME_COUNT,  to: 125 / FRAME_COUNT },
+    { el: document.getElementById('rockerCallout6'), from: 110 / FRAME_COUNT, to: 145 / FRAME_COUNT },
+    { el: document.getElementById('rockerCallout7'), from: 133 / FRAME_COUNT, to: 168 / FRAME_COUNT },
+    { el: document.getElementById('rockerCallout8'), from: 220 / FRAME_COUNT, to: 238 / FRAME_COUNT }
+  ];
+
+  const frames = new Array(FRAME_COUNT);
+  let loadedCount = 0;
+  let ready = false;
+  let currentFrame = 0;
+  let ticking = false;
+
+  const isNarrowViewport = () => window.innerWidth <= 767;
+
+  // How far past contain-fit mobile zooms in: 1 = full contain (lots of empty
+  // background), higher crops in tighter. Tuned by eye against the belt's widest
+  // rotation angles so it never clips the belt itself.
+  const MOBILE_ZOOM = 3.1;
+
+  function drawFrame(index){
+    const img = frames[index];
+    if(!img || !img.complete || !img.naturalWidth) return;
+    const cw = canvas.width, ch = canvas.height;
+    const containScale = Math.min(cw / img.naturalWidth, ch / img.naturalHeight);
+    const coverScale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+    // Mobile: zoom in past contain-fit to crop out excess background, capped at
+    // cover-fit so it never zooms in further than "fill the screen."
+    const scale = isNarrowViewport()
+      ? Math.min(coverScale, containScale * MOBILE_ZOOM)
+      : coverScale;
+    const dw = img.naturalWidth * scale, dh = img.naturalHeight * scale;
+    ctx.clearRect(0, 0, cw, ch);
+    ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+  }
+
+  function resizeCanvas(){
+    const rect = canvas.parentElement.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    drawFrame(currentFrame);
+
+    // Every frame shares the same source dimensions, so the belt's drawn top
+    // edge is the same regardless of which frame is showing — expose it as a
+    // CSS var so mobile can anchor callouts just above it instead of a fixed
+    // top:% that only worked for one viewport height.
+    const containScale = Math.min(canvas.width / FRAME_W, canvas.height / FRAME_H);
+    const coverScale = Math.max(canvas.width / FRAME_W, canvas.height / FRAME_H);
+    const scale = isNarrowViewport()
+      ? Math.min(coverScale, containScale * MOBILE_ZOOM)
+      : coverScale;
+    const dh = FRAME_H * scale;
+    const frameTop = (canvas.height - dh) / 2;
+    // The source photos have their own light background padding above the belt
+    // (it isn't cropped edge-to-edge), so the belt itself starts partway into
+    // the drawn frame, not at its very top edge. ~38% in is where it lands
+    // across the rotation, checked by sampling pixels on a few frames.
+    const BELT_PAD_FRACTION = 0.27;
+    const beltTopCss = (frameTop + dh * BELT_PAD_FRACTION) / dpr;
+    sticky.style.setProperty('--belt-top', beltTopCss + 'px');
+  }
+
+  function updateCallouts(progress){
+    CALLOUTS.forEach(({ el, from, to }) => {
+      el.classList.toggle('is-visible', progress >= from && progress <= to);
+    });
+  }
+
+  function updateFrameFromScroll(){
+    const rect = section.getBoundingClientRect();
+    const scrollable = rect.height - window.innerHeight;
+    let progress = scrollable > 0 ? -rect.top / scrollable : 0;
+    progress = Math.min(1, Math.max(0, progress));
+    currentFrame = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
+    drawFrame(currentFrame);
+    updateCallouts(progress);
+  }
+
+  function onScroll(){
+    if(!ready || ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      updateFrameFromScroll();
+      ticking = false;
+    });
+  }
+
+  function preload(){
+    for(let i = 0; i < FRAME_COUNT; i++){
+      const img = new Image();
+      img.onload = img.onerror = () => {
+        loadedCount++;
+        const pct = Math.round((loadedCount / FRAME_COUNT) * 100);
+        loaderFill.style.width = pct + '%';
+        loaderText.textContent = `Loading ${pct}%`;
+        if(loadedCount === FRAME_COUNT){
+          ready = true;
+          loader.style.display = 'none';
+          resizeCanvas();
+          updateFrameFromScroll();
+        }
+      };
+      img.src = framePath(i);
+      frames[i] = img;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+  preload();
+})();
+</script>
+
+</body>
+</html>
